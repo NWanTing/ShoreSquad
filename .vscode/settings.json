@@ -1,0 +1,17 @@
+{
+  "liveServer.settings.port": 3000,
+  "liveServer.settings.CustomBrowser": "chrome",
+  "liveServer.settings.donotShowInfoMsg": true,
+  "liveServer.settings.donotVerifyTags": true,
+  "liveServer.settings.mount": [
+    ["/", "./"]
+  ],
+  "liveServer.settings.file": "index.html",
+  "liveServer.settings.root": "/",
+  "liveServer.settings.wait": 100,
+  "liveServer.settings.fullReload": false,
+  "liveServer.settings.useLocalIp": false,
+  "liveServer.settings.proxy": {
+    "enable": false
+  }
+}
