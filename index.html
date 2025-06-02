@@ -126,12 +126,47 @@
                     <i class="fas fa-search"></i>
                     Find Cleanups
                 </button>
-            </div>
-            <div class="map-container" id="mapContainer">
-                <div class="map-placeholder">
-                    <i class="fas fa-map"></i>
-                    <p>Interactive map will load here</p>
-                    <small>Select location and date to view cleanup events</small>
+            </div>            <div class="map-container" id="mapContainer">
+                <div class="next-cleanup-info">
+                    <div class="cleanup-banner">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span class="cleanup-label">Next Cleanup Location</span>
+                        <span class="cleanup-location">Pasir Ris Beach</span>
+                        <span class="cleanup-date">Today, 2:00 PM</span>
+                    </div>
+                </div>
+                <div class="embedded-map">
+                    <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3988.6234567890123!2d103.95357415!3d1.38149745!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMcKwMjInNTMuNCJOIDEwM8KwNTcnMjAuMSJF!5e0!3m2!1sen!2ssg!4v1234567890123!5m2!1sen!2ssg&q=1.381497,103.955574(Next+Cleanup+Location+-+Pasir+Ris)"
+                        width="100%" 
+                        height="400" 
+                        style="border:0;" 
+                        allowfullscreen="" 
+                        loading="lazy" 
+                        referrerpolicy="no-referrer-when-downgrade"
+                        title="Next Beach Cleanup Location - Pasir Ris"
+                        aria-label="Google Maps showing next cleanup location at Pasir Ris Beach">
+                    </iframe>
+                </div>
+                <div class="map-info">
+                    <div class="location-details">
+                        <h4><i class="fas fa-location-dot"></i> Cleanup Details</h4>
+                        <p><strong>Location:</strong> Pasir Ris Beach, Singapore</p>
+                        <p><strong>Coordinates:</strong> 1.381497, 103.955574</p>
+                        <p><strong>Time:</strong> Today, 2:00 PM - 5:00 PM</p>
+                        <p><strong>Organizer:</strong> Beach Guardians Crew</p>
+                        <p><strong>Expected Participants:</strong> 15+ volunteers</p>
+                    </div>
+                    <div class="join-cleanup">
+                        <button class="btn btn-primary btn-large">
+                            <i class="fas fa-users"></i>
+                            Join This Cleanup
+                        </button>
+                        <button class="btn btn-secondary">
+                            <i class="fas fa-share"></i>
+                            Share Location
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
