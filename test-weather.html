@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather API Test</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            max-width: 800px; 
+            margin: 50px auto; 
+            padding: 20px; 
+            background: #f5f5f5; 
+        }
+        .test-container { 
+            background: white; 
+            padding: 30px; 
+            border-radius: 10px; 
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1); 
+        }
+        .api-result { 
+            background: #f8f9fa; 
+            padding: 15px; 
+            border-radius: 5px; 
+            margin: 10px 0; 
+            border-left: 4px solid #007bff; 
+        }
+        .loading { color: #007bff; }
+        .success { color: #28a745; }
+        .error { color: #dc3545; }
+        pre { 
+            background: #f1f3f4; 
+            padding: 10px; 
+            border-radius: 5px; 
+            overflow-x: auto; 
+            font-size: 12px; 
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>🌤️ Singapore Weather API Test</h1>
+        
+        <div id="test-results">
+            <div class="loading">⏳ Testing Singapore NEA APIs...</div>
+        </div>
+        
+        <h2>Test Results:</h2>
+        <div id="api-results"></div>
+    </div>
+
+    <script>
+        async function testWeatherAPIs() {
+            const resultsDiv = document.getElementById('api-results');
+            
+            try {
+                // Test 4-day forecast API
+                resultsDiv.innerHTML += '<div class="api-result loading">🔄 Testing 4-day forecast API...</div>';
+                
+                const forecastResponse = await fetch('https://api.data.gov.sg/v1/environment/4-day-weather-forecast');
+                
+                if (!forecastResponse.ok) {
+                    throw new Error(`4-day forecast API failed: ${forecastResponse.status}`);
+                }
+                
+                const forecastData = await forecastResponse.json();
+                resultsDiv.innerHTML += '<div class="api-result success">✅ 4-day forecast API working!</div>';
+                resultsDiv.innerHTML += `<pre>${JSON.stringify(forecastData, null, 2).substring(0, 500)}...</pre>`;
+                
+                // Test 2-hour forecast API
+                resultsDiv.innerHTML += '<div class="api-result loading">🔄 Testing 2-hour forecast API...</div>';
+                
+                const currentResponse = await fetch('https://api.data.gov.sg/v1/environment/2-hour-weather-forecast');
+                
+                if (!currentResponse.ok) {
+                    throw new Error(`2-hour forecast API failed: ${currentResponse.status}`);
+                }
+                
+                const currentData = await currentResponse.json();
+                resultsDiv.innerHTML += '<div class="api-result success">✅ 2-hour forecast API working!</div>';
+                resultsDiv.innerHTML += `<pre>${JSON.stringify(currentData, null, 2).substring(0, 500)}...</pre>`;
+                
+                // Show summary
+                document.getElementById('test-results').innerHTML = '<div class="success">🎉 All Singapore NEA APIs are working correctly!</div>';
+                
+                // Extract some sample data
+                const todayForecast = forecastData.items[0].forecasts[0];
+                const pasirRisArea = currentData.items[0].forecasts.find(f => f.area === 'Pasir Ris');
+                
+                resultsDiv.innerHTML += `
+                    <div class="api-result success">
+                        <strong>Sample Weather Data:</strong><br>
+                        📅 Today's Forecast: ${todayForecast.forecast}<br>
+                        🌡️ Temperature: ${todayForecast.temperature.low}°C - ${todayForecast.temperature.high}°C<br>
+                        💧 Humidity: ${todayForecast.relative_humidity.low}% - ${todayForecast.relative_humidity.high}%<br>
+                        💨 Wind: ${todayForecast.wind.speed.low}-${todayForecast.wind.speed.high} km/h ${todayForecast.wind.direction}<br>
+                        🏖️ Pasir Ris Current: ${pasirRisArea ? pasirRisArea.forecast : 'N/A'}
+                    </div>
+                `;
+                
+            } catch (error) {
+                console.error('Weather API test failed:', error);
+                resultsDiv.innerHTML += `<div class="api-result error">❌ Error: ${error.message}</div>`;
+                document.getElementById('test-results').innerHTML = '<div class="error">⚠️ Weather API test failed!</div>';
+            }
+        }
+        
+        // Run the test when page loads
+        window.addEventListener('load', testWeatherAPIs);
+    </script>
+</body>
+</html>
